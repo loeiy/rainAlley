@@ -1,0 +1,44 @@
+spring:
+  #数据库配置
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/alley
+    username: root
+    password: looeiy
+    # 使用druid数据源
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    filter: stat
+    maxActive: 20
+    initialSize: 1
+    maxWait: 60000
+    minIdle: 1
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxOpenPreparedStatements: 20
+    validation-query: select 'x'
+# 服务器配置
+server:
+  port: 8080
+
+# mybatis配置
+mybatis:
+  # 配置映射类所在包名
+  type-aliases-package: com.alley.rain.po
+  # 配置mapper xml文件所在路径，这里是一个数组
+  mapper-locations: classpath:mybatis/mapper/*.xml
+
+logging:
+  level:
+    com.wooyoo.learning: DEBUG
+#pagehelper分页插件
+pagehelper:
+    helperDialect: mysql
+    reasonable: true
+    supportMethodsArguments: true
+    params: count=countSql
+
+
