@@ -1,8 +1,11 @@
-package com.alley.rain.po;
+package com.alley.rain.to.user;
 
 import java.io.Serializable;
 
-public class UserPO implements Serializable {
+/**
+ * 前端用TO类
+ */
+public class UserTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private Integer userId;//用户ID
@@ -41,5 +44,4 @@ public class UserPO implements Serializable {
     public void setPhone(String phone) {
         this.phone = phone;
     }
-
 }

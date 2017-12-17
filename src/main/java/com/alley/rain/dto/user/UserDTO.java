@@ -1,14 +1,41 @@
-package com.alley.rain.po;
+package com.alley.rain.dto.user;
 
-import java.io.Serializable;
+import com.alley.rain.common.BaseTransitionModel;
+import com.alley.rain.po.UserPO;
+import com.alley.rain.to.user.UserTO;
 
-public class UserPO implements Serializable {
+/**
+ * 后端内部用dto类
+ */
+public class UserDTO extends BaseTransitionModel {
 
-    private static final long serialVersionUID = 1L;
     private Integer userId;//用户ID
     private String userName;//用户名
     private String password;//密码
     private String phone;//用户手机
+
+    public UserDTO() {
+
+    }
+
+    public UserDTO(UserPO po) {
+        this.constructByName(po);
+    }
+
+    /**
+     * 新增、修改
+     *
+     * @param to userInfo
+     */
+    public UserDTO(UserTO to) {
+        this.constructByName(to);
+    }
+
+    public UserPO genPO() {
+        UserPO po = this.generateByName(UserPO.class);
+        po.setPassword("80" + this.password);
+        return po;
+    }
 
     public Integer getUserId() {
         return userId;
@@ -41,5 +68,4 @@ public class UserPO implements Serializable {
     public void setPhone(String phone) {
         this.phone = phone;
     }
-
 }

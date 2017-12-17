@@ -1,7 +1,7 @@
 package com.alley.rain.serviceImpl.user;
 
-import com.alley.rain.po.UserPO;
 import com.alley.rain.service.UserService;
+import com.alley.rain.to.user.UserTO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ public class UserServiceImplTest {
 
     @Test
     public void insert() throws Exception {
-        UserPO po = new UserPO();
+        UserTO po = new UserTO();
         po.setUserName("loeiy");
         po.setPassword("123456789");
         po.setPhone("18539270301");

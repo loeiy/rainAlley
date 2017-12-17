@@ -3,7 +3,7 @@ package com.alley.rain.service;
 import com.alley.rain.common.QueryResult;
 import com.alley.rain.common.Result;
 import com.alley.rain.common.SingleResult;
-import com.alley.rain.po.UserPO;
+import com.alley.rain.to.user.UserTO;
 
 /**
  * 用户接口
@@ -15,7 +15,7 @@ public interface UserService {
      * @param userInfo 用户信息
      * @return res
      */
-    Result insert(UserPO userInfo);
+    Result insert(UserTO userInfo);
 
     /**
      * update user info
@@ -42,12 +42,12 @@ public interface UserService {
      * @param userId id
      * @return res
      */
-    SingleResult<UserPO> getUserById(int userId);
+    SingleResult<UserTO> getUserById(int userId);
 
     /**
      * query userList
      *
      * @return res
      */
-    QueryResult<UserPO> getUserList();
+    QueryResult<UserTO> getUserList();
 }

@@ -4,12 +4,15 @@ import com.alley.rain.common.QueryResult;
 import com.alley.rain.common.Result;
 import com.alley.rain.common.SingleResult;
 import com.alley.rain.dao.UserDao;
+import com.alley.rain.dto.user.UserDTO;
 import com.alley.rain.enums.ActionCodeEnum;
 import com.alley.rain.po.UserPO;
 import com.alley.rain.service.UserService;
+import com.alley.rain.to.user.UserTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service("userService")
@@ -19,8 +22,9 @@ public class UserServiceImpl implements UserService {
     UserDao userDao;
 
     @Override
-    public Result insert(UserPO userInfo) {
-        if (userDao.insert(userInfo) > 0) {
+    public Result insert(UserTO userInfo) {
+        UserPO userPO = new UserDTO(userInfo).genPO();
+        if (userDao.insert(userPO) > 0) {
             return new Result(true, ActionCodeEnum.ActionSuccessed);
         }
         return new Result(false, ActionCodeEnum.ActionFailed);
@@ -45,11 +49,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public SingleResult<UserPO> getUserById(int userId) {
-        SingleResult<UserPO> res = new SingleResult<>();
+    public SingleResult<UserTO> getUserById(int userId) {
+        SingleResult<UserTO> res = new SingleResult<>();
         UserPO userInfo = userDao.getUserById(userId);
         if (userInfo != null) {
-            res.setResult(userInfo);
+            res.setResult(new UserDTO(userInfo).generateByName(UserTO.class));
             res.setCode(ActionCodeEnum.ActionSuccessed);
             return res;
         }
@@ -58,11 +62,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public QueryResult<UserPO> getUserList() {
-        QueryResult<UserPO> res = new QueryResult<>();
+    public QueryResult<UserTO> getUserList() {
+        QueryResult<UserTO> res = new QueryResult<>();
         List<UserPO> poList = userDao.getUserList();
+        List<UserTO> resList = new ArrayList<>();
+        poList.forEach(t ->resList.add(new UserDTO(t).generateByName(UserTO.class)));
         res.setCode(ActionCodeEnum.ActionSuccessed);
-        res.setResults(poList);
+        res.setResults(resList);
         return res;
     }
 }
