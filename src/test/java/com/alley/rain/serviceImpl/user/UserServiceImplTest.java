@@ -6,9 +6,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -29,7 +27,7 @@ public class UserServiceImplTest {
 
     @Test
     public void updateUser() throws Exception {
-        userService.updateUser(1002,"dyf","","");
+        userService.updateUser(1002, "dyf", "", "");
     }
 
     @Test
@@ -47,4 +45,13 @@ public class UserServiceImplTest {
         userService.getUserList();
     }
 
+    @Test
+    public void getUserMapInfo() throws Exception {
+        userService.getUserMapInfo(1002);
+    }
+
+    @Test
+    public void getUserMapList() throws Exception {
+        userService.getUserMapList();
+    }
 }

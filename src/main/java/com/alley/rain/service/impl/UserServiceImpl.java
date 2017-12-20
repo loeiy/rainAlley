@@ -13,7 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service("userService")
 public class UserServiceImpl implements UserService {
@@ -66,9 +68,55 @@ public class UserServiceImpl implements UserService {
         QueryResult<UserTO> res = new QueryResult<>();
         List<UserPO> poList = userDao.getUserList();
         List<UserTO> resList = new ArrayList<>();
-        poList.forEach(t ->resList.add(new UserDTO(t).generateByName(UserTO.class)));
+        poList.forEach(t -> resList.add(new UserDTO(t).generateByName(UserTO.class)));
         res.setCode(ActionCodeEnum.ActionSuccessed);
         res.setResults(resList);
+        return res;
+    }
+
+    @Override
+    public SingleResult<Map<String, String>> getUserMapInfo(int userId) {
+        SingleResult<Map<String, String>> res = new SingleResult<>();
+        //namePhoneMap结果为{"userPhone","18539270301"},{"userName","dyf"}
+        Map<String, Object> namePhoneMap = userDao.getUserMapInfo(userId);
+        Map<String, String> resultMap = new HashMap<>();
+        String name = null;
+        String phone = null;
+        //下述代码不能用Lambda表达式操作，否则会报Variable used in lambda expression should be final or effectively final
+        //可以在Stream中使用外部变量，但是却不能进行赋值操作
+        for (Map.Entry<String, Object> entry : namePhoneMap.entrySet()) {
+            //获取namePhoneMap中的所有key对应的value
+            if ("userName".equals(entry.getKey())) {
+                name = (String) entry.getValue();
+            } else if ("userPhone".equals(entry.getKey())) {
+                phone = (String) entry.getValue();
+            }
+        }
+        //单独将name和phone分别作为key和value放进map
+        resultMap.put(name, phone);
+        res.setResult(resultMap);
+        res.setCode(ActionCodeEnum.ActionSuccessed);
+        return res;
+    }
+
+    @Override
+    public SingleResult<Map<String, String>> getUserMapList() {
+        SingleResult<Map<String, String>> res = new SingleResult<>();
+        List<Map<String, Object>> namePhoneMapList = userDao.getUserMapList();
+        Map<String, String> resultMap = new HashMap<>();
+        namePhoneMapList.forEach(t -> {
+            String userName = null;
+            String userPhone = null;
+            for (Map.Entry<String, Object> entry : t.entrySet()) {
+                if ("name".equals(entry.getKey())) {
+                    userName = (String) entry.getValue();
+                } else if ("phone".equals(entry.getKey())) {
+                    userPhone = (String) entry.getValue();
+                }
+            }
+            resultMap.put(userName, userPhone);
+        });
+        res.setResult(resultMap);
         return res;
     }
 }

@@ -18,10 +18,10 @@
             <if test="userName != null and userName != ''">
                 user_name = #{userName,jdbcType=VARCHAR},
             </if>
-            <if test="password != null and password != ''" >
+            <if test="password != null and password != ''">
                 password = #{password,jdbcType=VARCHAR},
             </if>
-            <if test="phone != null and phone != ''" >
+            <if test="phone != null and phone != ''">
                 phone = #{phone,jdbcType=VARCHAR},
             </if>
         </set>
@@ -35,7 +35,7 @@
 
     <select id="getUserById" resultMap="UserMap">
         SELECT
-        <include refid="QUERY_USER_LIST" />
+        <include refid="QUERY_USER_LIST"/>
         FROM
         t_user
         WHERE user_id = #{userId,jdbcType=INTEGER}
@@ -43,20 +43,40 @@
 
     <select id="getUserList" resultMap="UserMap">
         SELECT
-        <include refid="QUERY_USER_LIST" />
+        <include refid="QUERY_USER_LIST"/>
         FROM
         t_user
         ORDER by user_id
     </select>
 
-    <sql id="QUERY_USER_LIST" >
+    <!--测试Map返回-->
+    <select id="getUserMapInfo" resultType="java.util.HashMap">
+        SELECT
+        user_name AS userName,
+        phone AS userPhone
+        FROM
+        t_user
+        WHERE user_id = #{userId,jdbcType=INTEGER}
+    </select>
+
+    <!--测试List<Map>返回-->
+    <select id="getUserMapList" resultType="java.util.HashMap">
+        SELECT
+        user_name AS name,
+        phone AS phone
+        FROM
+        t_user
+        ORDER BY user_id
+    </select>
+
+    <sql id="QUERY_USER_LIST">
         user_id, user_name, password, phone
     </sql>
 
-    <resultMap id="UserMap" type="UserPO" >
-        <id column="user_id" property="userId" jdbcType="INTEGER" />
-        <result column="user_name" property="userName" jdbcType="VARCHAR" />
-        <result column="password" property="password" jdbcType="VARCHAR" />
-        <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <resultMap id="UserMap" type="UserPO">
+        <id column="user_id" property="userId" jdbcType="INTEGER"/>
+        <result column="user_name" property="userName" jdbcType="VARCHAR"/>
+        <result column="password" property="password" jdbcType="VARCHAR"/>
+        <result column="phone" property="phone" jdbcType="VARCHAR"/>
     </resultMap>
 </mapper>
