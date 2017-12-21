@@ -84,6 +84,7 @@ public class UserServiceImpl implements UserService {
         String phone = null;
         //下述代码不能用Lambda表达式操作，否则会报Variable used in lambda expression should be final or effectively final
         //可以在Stream中使用外部变量，但是却不能进行赋值操作
+        //此处仅测试用，实际用则dao返回List<po>,循环取字段值put进Map即可
         for (Map.Entry<String, Object> entry : namePhoneMap.entrySet()) {
             //获取namePhoneMap中的所有key对应的value
             if ("userName".equals(entry.getKey())) {
