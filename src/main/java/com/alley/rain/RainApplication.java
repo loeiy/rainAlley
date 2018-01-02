@@ -10,7 +10,7 @@ import org.springframework.boot.web.support.SpringBootServletInitializer;
 //@MapperScan("com.alley.rain.dao")//将项目中对应的mapper类的路径加进来就可以了(如果此文件没有在根目录下，获取bean的方式会有先后顺序)
 public class RainApplication extends SpringBootServletInitializer {
 	//程序启动入口
-	//启动嵌入式的Tomcat并初始化Spring环境及其各Spring组件
+	//启动嵌入式的Tomcat并初始化Spring环境及其各Spring组件  121
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
         return application.sources(RainApplication.class);
