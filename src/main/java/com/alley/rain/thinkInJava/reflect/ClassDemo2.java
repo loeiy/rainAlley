@@ -1,4 +1,4 @@
-package com.alley.rain.thinkInJava.reflect;
+package com.alley.rain.thinkinjava.reflect;
 
 public class ClassDemo2 {
 

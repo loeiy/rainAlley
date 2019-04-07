@@ -1,4 +1,4 @@
-package com.alley.rain.thinkInJava.reflect;
+package com.alley.rain.thinkinjava.reflect;
 
 
 /**
@@ -26,9 +26,10 @@ public class ClassDemo1 {
         System.out.println(c1 == c2);
 
         // 3.c3也是该类的类类型。Class.forName("类的全称")不仅表示了类的类类型，还代表了动态加载类
+        // 一般使用这种方法，1需要导入类的包路径，2都有对象了还需要反射吗？
         Class c3 = null;
         try {
-            c3 = Class.forName("com.alley.rain.thinkInJava.reflect.Foo");
+            c3 = Class.forName("com.alley.rain.thinkinjava.reflect.Foo");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
