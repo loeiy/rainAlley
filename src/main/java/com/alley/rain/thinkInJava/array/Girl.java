@@ -10,6 +10,16 @@ public class Girl {
     private String name;
     private String age;
 
+    private int agee=10;
+
+    public int getAgee() {
+        return agee;
+    }
+
+    public void setAgee(int agee) {
+        this.agee = agee;
+    }
+
     public Girl() {
     }
 
