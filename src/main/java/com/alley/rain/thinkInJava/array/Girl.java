@@ -9,8 +9,9 @@ package com.alley.rain.thinkinjava.array;
 public class Girl {
     private String name;
     private String age;
+    private String cellPhone;
 
-    private int agee=10;
+    private int agee = 10;
 
     public int getAgee() {
         return agee;
@@ -26,7 +27,12 @@ public class Girl {
     public Girl(String name, String age) {
         this.name = name;
         this.age = age;
+    }
 
+    public Girl(String name, String age, String cellPhone) {
+        this.name = name;
+        this.age = age;
+        this.cellPhone = cellPhone;
     }
 
     public String getName() {
@@ -45,11 +51,21 @@ public class Girl {
         this.age = age;
     }
 
+    public String getCellPhone() {
+        return cellPhone;
+    }
+
+    public void setCellPhone(String cellPhone) {
+        this.cellPhone = cellPhone;
+    }
+
     @Override
     public String toString() {
         return "Girl{" +
                 "name='" + name + '\'' +
                 ", age='" + age + '\'' +
+                ", cellPhone='" + cellPhone + '\'' +
+                ", agee=" + agee +
                 '}';
     }
 }
